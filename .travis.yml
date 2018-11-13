@@ -9,10 +9,10 @@ script:
   - docker run mraganyi/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t mraganyi/multi-client -f ./client
-  - docker build -t mraganyi/multi-nginx -f ./nginx
-  - docker build -t mraganyi/multi-server -f ./server
-  - docker build -t mraganyi/multi-worker -f ./worker
+  - docker build -t mraganyi/multi-client ./client
+  - docker build -t mraganyi/multi-nginx ./nginx
+  - docker build -t mraganyi/multi-server ./server
+  - docker build -t mraganyi/multi-worker ./worker
 #Login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 #Take those images and push to docker hub
