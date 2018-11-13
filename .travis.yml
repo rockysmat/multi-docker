@@ -3,20 +3,20 @@ service:
   - docker
 
 before_install:
-  - docker build -t rockysmat/react-test -f ./client/Dockerfile.dev ./client 
+  - docker build -t mraganyi/react-test -f ./client/Dockerfile.dev ./client 
 
 script:
-  - docker run rockysmat/react-test npm test -- --coverage
+  - docker run mraganyi/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t rockysmat/multi-client -f ./client
-  - docker build -t rockysmat/multi-nginx -f ./nginx
-  - docker build -t rockysmat/multi-server -f ./server
-  - docker build -t rockysmat/multi-worker -f ./worker
+  - docker build -t mraganyi/multi-client -f ./client
+  - docker build -t mraganyi/multi-nginx -f ./nginx
+  - docker build -t mraganyi/multi-server -f ./server
+  - docker build -t mraganyi/multi-worker -f ./worker
 #Login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 #Take those images and push to docker hub
-  - docker push rockysmat/multi-client
-  - docker push rockysmat/multi-nginx
-  - docker push rockysmat/multi-server
-  - docker push rockysmat/multi-worker
+  - docker push mraganyi/multi-client
+  - docker push mraganyi/multi-nginx
+  - docker push mraganyi/multi-server
+  - docker push mraganyi/multi-worker
