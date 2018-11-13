@@ -1,0 +1,22 @@
+required: sudo
+service: 
+  - docker
+
+before_install:
+  - docker build -t rocksmat/react-test -f ./client/Dockerfile.dev 
+
+script:
+  - docker run rockysmat/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t rockysmat/multi-client -f ./client
+  - docker build -t rockysmat/multi-nginx -f ./nginx
+  - docker build -t rockysmat/multi-server -f ./server
+  - docker build -t rockysmat/multi-worker -f ./worker
+#Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+#Take those images and push to docker hub
+  - docker push rockysmat/multi-client
+  - docker push rockysmat/multi-nginx
+  - docker push rockysmat/multi-server
+  - docker push rockysmat/multi-worker
