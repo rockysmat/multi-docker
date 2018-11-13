@@ -3,7 +3,7 @@ service:
   - docker
 
 before_install:
-  - docker build -t rocksmat/react-test -f ./client/Dockerfile.dev 
+  - docker build -t rockysmat/react-test -f ./client/Dockerfile.dev 
 
 script:
   - docker run rockysmat/react-test npm test -- --coverage
